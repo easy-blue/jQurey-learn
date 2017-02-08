@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+</head>
+<style>
+	#box1,#box2{
+		width: 200px;
+		margin: 0 auto;
+	}
+	#box1>div,
+	#box2>div{
+		width: 200px;
+		height: 200px;
+		border: 1px solid blue;
+		display: none;
+	}
+	.active{background-color: blue;}
+</style>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script>
+	// js方法
+	window.onload = function () {
+		var oBox = document.getElementById('box1');
+		var aInput = oBox.getElementsByTagName('input');
+		var aCon = oBox.getElementsByTagName('div');
+
+		for (var i = 0; i < aInput.length; i++) {
+
+			aInput[i].index = i;
+
+			aInput[i].onclick = function () {
+				for (var i = 0; i < aInput.length; i++) {
+					aInput[i].className = '';
+					aCon[i].style.display = 'none';
+				}
+				 this.className = 'active';
+				 aCon[this.index].style.display = 'block';
+			}
+		}
+	}
+	// jq方法
+	$(function () {
+		$('#box2').find('input').click(function() {
+			$('#box2').find('input').attr('class','');
+			$('#box2').find('div').css('display','none');
+			$(this).attr('class','active');
+			$('#box2').find('div').eq($(this).index()).css('display',' block');
+		});
+	})
+</script>
+<body>
+	<div id="box1">
+		<input class="active" type="button" value="1">
+		<input type="button" value="2">
+		<input type="button" value="3">
+		<div style="display: block;">js111</div>
+		<div>js222</div>
+		<div>js333</div>
+	</div>
+	<div id="box2">
+		<input class="active" type="button" value="1">
+		<input type="button" value="2">
+		<input type="button" value="3">
+		<div style="display: block;">jq111</div>
+		<div>jq222</div>
+		<div>jq333</div>
+	</div>
+</body>
+</html>

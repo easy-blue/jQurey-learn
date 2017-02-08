@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹窗</title>
+</head>
+<style>
+#login{
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border: 1px solid green;
+}
+#close{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+#close:hover{cursor: pointer;}
+</style>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script>
+$(function () {
+	$('#input1').click(function() {
+		// 插入
+		var oLogin = $('<div id="login"><p>用户名：<input type="text" /></p><p>密&emsp;码：<input type="text" /></p><div id="close">X</div></div>');
+
+		$('body').append(oLogin);
+		// 居中
+		oLogin.css('left' , ($(window).width() - oLogin.outerWidth())/2);
+		oLogin.css('top' , ($(window).height() - oLogin.outerHeight())/2);
+		// 滚动居中
+		$(window).on('resize scroll', function() {
+			oLogin.css('left' , ($(window).width() - oLogin.outerWidth())/2);
+			oLogin.css('top' , ($(window).height() - oLogin.outerHeight())/2  + $(window).scrollTop());
+		});
+		// 关闭
+		$('#close').click(function() {
+			oLogin.remove();
+		});
+
+
+	});
+})
+</script>
+<body>
+	<input id="input1" type="button" value="点击">
+	<!-- <div id="login">
+		<p>用户名：<input type="text" /></p>
+		<p>密&emsp;码：<input type="text" /></p>
+		<div id="close">X</div>
+	</div> -->
+</body>
+</html>

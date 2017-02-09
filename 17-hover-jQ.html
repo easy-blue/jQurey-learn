@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hover</title>
+</head>
+<style>
+#box1,#box2,#box3,#box4,#box5{
+	width: 100px;
+	height: 100px;
+}
+#box1{background-color: orange;}
+#box2{background-color: pink;}
+#box3{background-color: red;}
+#box4{background-color: green;}
+#box5{background-color: yellow;}
+</style>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('#box1').hover(function() {
+
+		$(this).css('background-color','blue');
+		$('#box2').hide(1000);
+		$('#box3').fadeTo(1000,0.3);
+		$('#box4').fadeOut(1000);
+		$('#box5').slideUp(1000);
+
+	}, function() {
+
+		$(this).css('background-color','orange');
+		$('#box2').show(1000);
+		$('#box3').fadeTo(1000,1);
+		$('#box4').fadeIn(1000);
+		$('#box5').slideDown(1000);
+
+	});
+
+})
+</script>
+<body>
+	<div id="box1"></div>
+	<div id="box2"></div>
+	<div id="box3"></div>
+	<div id="box4"></div>
+	<div id="box5"></div>
+</body>
+</html>

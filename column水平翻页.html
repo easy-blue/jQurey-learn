@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>column水平翻页</title>
+<style>
+.allstyle{
+	width:100%;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 16px;
+}
+.pre,.next,.all{
+	display: inline-block;
+	width: 4em;
+	height: 2em;
+	color: #fff;
+	line-height: 2em;
+	text-align: center;
+	cursor: pointer;
+	background-color: green;
+}
+.container{
+	width: 208px;
+	height: 300px;
+	margin: 10px auto;
+	padding: 10px;
+	overflow: hidden;
+	border: 1px solid green;
+}
+.column{
+	width: 210px;
+	height: 300px;
+	text-align: justify;
+	/*每栏宽度*/
+	column-width: 210px;
+	-moz-column-width: 210px;
+	-webkit-column-width: 210px;
+	/*栏目分割线*/
+	column-rule: 1px solid green;
+	-moz-column-rule: 1px solid green;
+	-webkit-column-rule: 1px solid green;
+	/*栏目间水平间隙*/
+	column-gap: 20px;
+	-moz-column-gap: 20px;
+	-webkit-column-gap: 20px;
+}
+.content{transition: transform 1s;}
+.disX{
+	transform: translateX(-230px);
+	-ms-transform: translateX(-230px); 	/* IE 9 */
+	-moz-transform: translateX(-230px); 	/* Firefox */
+	-webkit-transform: translateX(-230px); /* Safari 和 Chrome */
+	-o-transform: translateX(-230px); 	/* Opera */
+}
+</style>
+<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(function () {
+
+	var gap = parseInt( $('.column').css('column-gap') );/*栏目间隙*/
+	var pwidth = $('.content').outerWidth() + gap;		/*总栏目宽*/
+	var page = $('.column').outerWidth() + gap;			/*每栏宽*/
+	var pagenumber = pwidth/page;						/*总页数（栏目数）*/
+	var disX = 0;										/*当前距离*/
+	var currpage = (disX + page)/page;					/*当前页*/
+	// 判断首页
+	if (currpage <= 1) {
+		$('.pre').css('background-color','gray');
+	};
+
+	$('.pagenumber').html( pagenumber );
+	$('.currpage').html( currpage );
+	// 下一页
+	$('.next').click(function () {
+		disX += page;
+		currpage += 1;
+		// 判断最后页
+		if (currpage >= pagenumber) {
+			disX = pwidth - page;
+			currpage = pagenumber;
+			$('.next').css('background-color','gray');
+			$('.pre').css('background-color','green');
+		}
+		$('.content').css('transform','translateX(-'+ disX +'px)');
+		$('.currpage').html( currpage );
+	});
+	// 上一页
+	$('.pre').click(function () {
+		disX -= page;
+		currpage -= 1;
+		// 判断首页
+		if (currpage <= 1) {
+			disX = 0;
+			currpage = 1;
+			$('.pre').css('background-color','gray');
+			$('.next').css('background-color','green');
+		}
+		$('.content').css('transform','translateX(-'+ disX +'px)');
+		$('.currpage').html( currpage );
+	});
+	// all
+	$('.all').click(function () {
+		$('.container').css('width',$('.content').outerWidth());
+	});
+})
+</script>
+</head>
+<body>
+	<div class="allstyle">
+		<div class="container">
+			<div class="column">
+				<div class="content">
+					column实现水平翻页原理(用了transform样式火狐下正常)<br><br>
+					1.column给定宽高和栏目宽度，栏目数量和栏目高度会按内容自动计算填充，从而实现分页效果<br><br>
+					2.页面宽度包含栏目间隙<br><br>
+					3.父级container固定宽高后超出隐藏即可只展示一页<br><br>
+					4.用transform样式改变content水平位置实现翻页<br><br>
+					5.首页和最后一页需要加判断<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+					6<br><br>
+				</div>
+			</div>
+		</div>
+		<div class="pre">上一页</div>
+		<div class="next">下一页</div>
+		<div class="all">看全部</div>
+		<div>
+			<span class="currpage"></span>/
+			<span class="pagenumber"></span>
+		</div>
+	</div>
+</body>
+</html>
